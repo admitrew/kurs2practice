@@ -1,6 +1,7 @@
 #include <QApplication>
 #include "ChatWindow.h"
 #include "UserManager.h"
+#include "LoginWindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,9 +15,16 @@ int main(int argc, char *argv[])
         qDebug() << "Не удалось подключиться к базе данных";
     }
 
-    ChatWindow window;
-    window.resize(500, 400);
-    window.show();
+    // окно регистрации
+    LoginWindow login;
+    ChatWindow chat;
+
+    QObject::connect(&login, &LoginWindow::loginSuccess, [&](const QString &username){
+        chat.setWindowTitle("Чат - " + username);
+        chat.show();
+    });
+
+    login.show();
 
     return app.exec();
 }

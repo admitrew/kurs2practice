@@ -12,6 +12,7 @@ SOURCES += \
     ChatClient.cpp \
     ChatWindow.cpp \
 #    test_chatclient.cpp \ -- для автоматизированного тестирования
+    LoginWindow.cpp \
     UserManager.cpp \
     main.cpp
 
@@ -19,10 +20,12 @@ HEADERS += \
     ChatClient.h \
 #    ChatClientTest.h \ -- для автоматизированного тестирования
     ChatWindow.h \
+    LoginWindow.h \
     UserManager.h
 
 FORMS += \
-    ChatWindow.ui
+    ChatWindow.ui \
+    loginwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
