@@ -1,4 +1,4 @@
-QT       += core gui network testlib
+QT       += core gui network testlib sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,12 +12,14 @@ SOURCES += \
     ChatClient.cpp \
     ChatWindow.cpp \
 #    test_chatclient.cpp \ -- для автоматизированного тестирования
+    UserManager.cpp \
     main.cpp
 
 HEADERS += \
     ChatClient.h \
 #    ChatClientTest.h \ -- для автоматизированного тестирования
-    ChatWindow.h
+    ChatWindow.h \
+    UserManager.h
 
 FORMS += \
     ChatWindow.ui
