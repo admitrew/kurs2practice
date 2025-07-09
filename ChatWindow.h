@@ -2,12 +2,15 @@
 #define CHATWINDOW_H
 
 #include <QWidget>
+#include <QMessageBox>
+#include "UserManager.h"
 
 class QTextEdit;
 class QLineEdit;
 class QPushButton;
 class QLabel;
 class QComboBox;
+class QListWidget;
 class ChatClient;
 
 class ChatWindow : public QWidget
@@ -16,6 +19,10 @@ class ChatWindow : public QWidget
 
 public:
     explicit ChatWindow(QWidget *parent = nullptr);
+    ~ChatWindow();
+
+public slots:
+    void setCurrentUser(const QString &username);
 
 private slots:
     void onSendClicked();
@@ -27,18 +34,31 @@ private slots:
     void onDisconnected();
     void onErrorOccurred(const QString &error);
 
+    void on_addFriendButton_clicked();
+    void loadFriends();
+
 private:
+    // Элементы интерфейса чата
     QTextEdit *chatHistory;
     QLineEdit *inputMessage;
     QPushButton *sendButton;
 
-    QComboBox *modeComboBox;    // Режим: Клиент / Сервер
-    QLineEdit *inputIP;         // IP-адрес (только для клиента)
-    QLineEdit *inputPort;       // Порт
+    // Подключение
+    QComboBox *modeComboBox;
+    QLineEdit *inputIP;
+    QLineEdit *inputPort;
     QPushButton *connectButton;
 
     QLabel *statusLabel;
 
+    // Элементы интерфейса друзей
+    QListWidget *friendsListWidget;
+    QLineEdit *friendNameLineEdit;
+    QPushButton *addFriendButton;
+
+    // Логика
+    QString currentUsername;
+    UserManager userManager;
     ChatClient *chatClient;
 };
 

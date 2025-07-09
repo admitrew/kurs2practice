@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <QSqlDatabase>
 
 class UserManager : public QObject {
@@ -10,14 +11,15 @@ class UserManager : public QObject {
 
 public:
     explicit UserManager(QObject *parent = nullptr);
-    bool openDatabase(const QString &dbPath);
+
     bool registerUser(const QString &username, const QString &password);
     bool authenticateUser(const QString &username, const QString &password);
-    QString getAvatarPath(const QString &username);
+    int getUserId(const QString &username); // <-- ДОБАВИТЬ
+    bool addFriend(const QString &username, const QString &friendUsername); // <-- ДОБАВИТЬ
+    QStringList getFriends(const QString &username); // <-- ДОБАВИТЬ
 
 private:
     QSqlDatabase db;
-    QString hashPassword(const QString &password);
     void initializeDatabase();
 };
 
