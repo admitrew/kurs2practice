@@ -89,6 +89,10 @@ ChatWindow::ChatWindow(QWidget *parent) : QWidget(parent)
     onModeChanged(modeComboBox->currentIndex());
 }
 
+ChatWindow::~ChatWindow() {
+
+}
+
 void ChatWindow::onModeChanged(int index)
 {
     bool isClient = (index == 0);

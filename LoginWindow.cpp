@@ -1,6 +1,8 @@
 #include "LoginWindow.h"
 #include <QMessageBox>
 #include "ui_LoginWindow.h"
+#include "ChatWindow.h"
+#include "UserManager.h"
 
 LoginWindow::LoginWindow(QWidget *parent)
     : QWidget(parent)
@@ -18,17 +20,17 @@ LoginWindow::~LoginWindow()
     delete ui;
 }
 
-void LoginWindow::on_loginButton_clicked()
-{
-    QString username = ui->usernameLineEdit->text();
+void LoginWindow::on_loginButton_clicked() {
+    QString username = ui->usernameLineEdit->text().trimmed();
     QString password = ui->passwordLineEdit->text();
 
     if (userManager.authenticateUser(username, password)) {
-        ui->statusLabel->setText("Вход выполнен");
-        emit loginSuccess(username);
-        close(); // закроем окно логина
+        ChatWindow *chatWindow = new ChatWindow();
+        chatWindow->setCurrentUser(username); // ВАЖНО: здесь передаётся имя
+        chatWindow->show();
+        this->close();
     } else {
-        ui->statusLabel->setText("Неверный логин или пароль");
+        ui->statusLabel->setText("Неверный логин или пароль.");
     }
 }
 

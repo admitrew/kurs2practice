@@ -1,4 +1,5 @@
 QT       += core gui network testlib sql
+QMAKE_CXXFLAGS += -pipe
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
