@@ -9,6 +9,41 @@ LoginWindow::LoginWindow(QWidget *parent)
     , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+
+    this->setStyleSheet(R"(
+    QWidget {
+        background-color: #f4f6f8;
+        font-family: Segoe UI, sans-serif;
+        font-size: 12pt;
+    }
+
+    QLineEdit {
+        background-color: #ffffff;
+        border: 1px solid #c0c0c0;
+        border-radius: 5px;
+        padding: 6px;
+    }
+
+    QPushButton {
+        background-color: #0078d7;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 16px;
+    }
+
+    QPushButton:hover {
+        background-color: #005fa1;
+    }
+
+    QPushButton:pressed {
+        background-color: #004578;
+    }
+
+    QLabel {
+        color: #333333;
+    })");
+
     if (!userManager.openDatabase("users.db")) {
         QMessageBox::critical(this, "Ошибка", "Не удалось открыть базу данных");
         close();

@@ -13,6 +13,53 @@
 
 ChatWindow::ChatWindow(QWidget *parent) : QWidget(parent)
 {
+    this->setStyleSheet(R"(
+    QWidget {
+        background-color: #f4f6f8;
+        font-family: Segoe UI, sans-serif;
+        font-size: 12pt;
+    }
+
+    QTextEdit, QLineEdit {
+        background-color: #ffffff;
+        border: 1px solid #c0c0c0;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    QPushButton {
+        background-color: #0078d7;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 6px 12px;
+    }
+
+    QPushButton:hover {
+        background-color: #005fa1;
+    }
+
+    QPushButton:pressed {
+        background-color: #004578;
+    }
+
+    QListWidget {
+        background-color: #ffffff;
+        border: 1px solid #c0c0c0;
+        border-radius: 5px;
+    }
+
+    QLabel {
+        color: #333333;
+    }
+
+    QComboBox {
+        background-color: #ffffff;
+        border: 1px solid #c0c0c0;
+        border-radius: 5px;
+        padding: 4px;
+    })");
+
     chatHistory = new QTextEdit(this);
     chatHistory->setReadOnly(true);
 
