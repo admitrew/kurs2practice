@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebRTC Call</title>
+  <style>
+    video {
+      width: 45%;
+      margin: 10px;
+      border-radius: 10px;
+      border: 2px solid #4CAF50;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #222;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    button {
+      margin: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>WebRTC Video Chat</h2>
+  <video id="localVideo" autoplay muted playsinline></video>
+  <video id="remoteVideo" autoplay playsinline></video>
+  <button onclick="startCall()">Start</button>
+
+  <script>
+    const pc = new RTCPeerConnection();
+    const localVideo = document.getElementById('localVideo');
+    const remoteVideo = document.getElementById('remoteVideo');
+    const socket = new WebSocket("ws://localhost:8765");
+
+    socket.onmessage = async (event) => {
+      const message = JSON.parse(event.data);
+
+      if (message.type === 'offer') {
+        await pc.setRemoteDescription(new RTCSessionDescription(message.data));
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+        socket.send(JSON.stringify({ type: 'answer', data: answer }));
+      } else if (message.type === 'answer') {
+        await pc.setRemoteDescription(new RTCSessionDescription(message.data));
+      } else if (message.type === 'ice') {
+        try {
+          await pc.addIceCandidate(message.data);
+        } catch (e) {
+          console.error('Error adding ICE:', e);
+        }
+      }
+    };
+
+    pc.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket.send(JSON.stringify({ type: 'ice', data: event.candidate }));
+      }
+    };
+
+    pc.ontrack = (event) => {
+      remoteVideo.srcObject = event.streams[0];
+    };
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        localVideo.srcObject = stream;
+        stream.getTracks().forEach(track => pc.addTrack(track, stream));
+      });
+
+    async function startCall() {
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+      socket.send(JSON.stringify({ type: 'offer', data: offer }));
+    }
+  </script>
+</body>
+</html>

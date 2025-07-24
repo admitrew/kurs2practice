@@ -1,4 +1,4 @@
-QT       += core gui network testlib sql
+QT += core gui network testlib sql webenginewidgets
 QMAKE_CXXFLAGS += -pipe
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -15,6 +15,7 @@ SOURCES += \
 #    test_chatclient.cpp \ -- для автоматизированного тестирования
     LoginWindow.cpp \
     UserManager.cpp \
+    VideoCallWindow.cpp \
     main.cpp
 
 HEADERS += \
@@ -22,7 +23,8 @@ HEADERS += \
 #    ChatClientTest.h \ -- для автоматизированного тестирования
     ChatWindow.h \
     LoginWindow.h \
-    UserManager.h
+    UserManager.h \
+    VideoCallWindow.h
 
 FORMS += \
     ChatWindow.ui \
