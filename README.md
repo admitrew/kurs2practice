@@ -18,30 +18,52 @@ WebRTC Chat Application (Qt + WebEngine + HTML + Signaling Server)
 Установка и сборка:
 Windows:
 1. Убедитесь, что установлен Qt с модулем Qt WebEngine Widgets.
+
 2. Установите Python и зависимость:
+   
    pip install websockets
+
 3. Сборка через CMake:
+   
    mkdir build
+
    cd build
+   
    cmake ..
+   
    cmake --build .
+
 4. Запуск:
+   
    python ../signaling_server.py
+   
    ./WebRTCChatApp
    
 Linux:
 1. Установите Qt и WebEngine:
+   
+
    sudo apt install qt6-base-dev qt6-webengine-dev
 2. Установите Python и зависимость:
+   
    sudo apt install python3-pip
+   
    pip install websockets
+
 3. Сборка:
+   
    mkdir build
+
    cd build
+
    cmake ..
+
    make
+
 4. Запуск:
+
    python3 ../signaling_server.py
+
    ./WebRTCChatApp
 
 
